@@ -4,6 +4,9 @@
 #include<SDL2/SDL.h>
 #include <SDL2/SDL_stdinc.h>
 
+
+typedef unsigned char u_char;
+
 class Window{
 public:
         SDL_Window* window = nullptr;

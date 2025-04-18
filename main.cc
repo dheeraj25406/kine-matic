@@ -8,6 +8,9 @@
 #include<complex>
 #include<SDL2/SDL2_gfxPrimitives.h>
 #include <iterator>
+#ifdef WIN32
+    #include <windows.h>
+#endif
 
 typedef std::complex<double> cmplx;
 
@@ -113,8 +116,12 @@ Uint32 Plane::originColor = 0xff555555;
 Uint32 Arm::armColor = 0xffffffff;
 const Uint8 *keyboard;
 
-
-int main(int argc, char *argv[]){
+#ifdef WIN32
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+#else
+int main(int argc, char *argv[])
+#endif
+{
 
     Window window{800, 600, "new window"};
     Plane plane{window};
@@ -127,7 +134,7 @@ int main(int argc, char *argv[]){
 
     for(int i=0;i<totalArms;i++){
         new(arms+i)Arm(i>0?arms+i-1:NULL, 4.0, 0.0);
-        arms[i].thickness = (i)*0.3 + 1;
+        arms[i].thickness = i*0.3 + 1;
     }
 
     window.setBlendMode(true);
